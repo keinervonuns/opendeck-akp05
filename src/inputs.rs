@@ -8,7 +8,7 @@ pub fn process_input(input: u8, state: u8) -> Result<DeviceInput, MirajazzError>
     match input {
         (1..=10) => read_button_press(input, state),
         0xa0 | 0xa1 | 0x50 | 0x51 | 0x90 | 0x91 | 0x70 | 0x71 => read_encoder_value(input),
-        0x37 | 0x35 | 0x33 | 0x36 | 0x40 | 0x41 | 0x42 | 0x43 | 0x38 | 0x39 => {
+        0x37 | 0x35 | 0x33 | 0x36 | 0x00 | 0x40 | 0x41 | 0x42 | 0x43 | 0x38 | 0x39 => {
             read_encoder_press(input, state)
         }
         _ => Err(MirajazzError::BadData),
@@ -79,11 +79,11 @@ fn read_encoder_value(input: u8) -> Result<DeviceInput, MirajazzError> {
     Ok(DeviceInput::EncoderTwist(encoder_values))
 }
 
-fn read_encoder_press(input: u8, state: u8) -> Result<DeviceInput, MirajazzError> {
+fn read_encoder_press(input: u8, _state: u8) -> Result<DeviceInput, MirajazzError> {
     let mut encoder_states = vec![false; ENCODER_COUNT];
 
     let encoder: usize = match input {
-        0x37 | 0x40 => 0, // Left most
+        0x37 | 0x00 | 0x40 => 0, // Left most
         0x35 | 0x41 => 1,
         0x33 | 0x42 => 2,
         0x36 | 0x43 => 3, // Right most
@@ -92,6 +92,6 @@ fn read_encoder_press(input: u8, state: u8) -> Result<DeviceInput, MirajazzError
         _ => return Err(MirajazzError::BadData),
     };
 
-    encoder_states[encoder] = state != 0;
+    encoder_states[encoder] = true;
     Ok(DeviceInput::EncoderStateChange(encoder_states))
 }
