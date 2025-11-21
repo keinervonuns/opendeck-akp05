@@ -87,7 +87,7 @@ impl Kind {
         if self.protocol_version() == 3 {
             return ImageFormat {
                 mode: ImageMode::JPEG,
-                size: (176, 112),
+                size: (176, 112), // from https://github.com/MiraboxSpace/StreamDock-Device-SDK/blob/31d887551de556bd0776bf4982233999d58e49d1/CPP-SDK/src/HotspotDevice/StreamDockN4/streamdockN4.cpp#L57
                 rotation: ImageRotation::Rot180,
                 mirror: ImageMirroring::None,
             };
