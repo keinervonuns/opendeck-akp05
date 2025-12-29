@@ -1,6 +1,9 @@
 use mirajazz::{error::MirajazzError, types::DeviceInput};
+use std::sync::Mutex;
 
 use crate::mappings::{ENCODER_COUNT, KEY_COUNT};
+
+static ENCODER_STATES: Mutex<[bool; 4]> = Mutex::new([false; 4]);
 
 pub fn process_input(input: u8, state: u8) -> Result<DeviceInput, MirajazzError> {
     log::debug!("Processing input: {input}=0x{input:02x}=0b{input:08b}, {state}");
@@ -80,7 +83,6 @@ fn read_encoder_value(input: u8) -> Result<DeviceInput, MirajazzError> {
 }
 
 fn read_encoder_press(input: u8, _state: u8) -> Result<DeviceInput, MirajazzError> {
-    let mut encoder_states = vec![false; ENCODER_COUNT];
 
     let encoder: usize = match input {
         0x37 | 0x00 | 0x40 => 0, // Left most
@@ -93,6 +95,11 @@ fn read_encoder_press(input: u8, _state: u8) -> Result<DeviceInput, MirajazzErro
         _ => return Err(MirajazzError::BadData),
     };
 
-    encoder_states[encoder] = true;
+    let mut states = ENCODER_STATES.lock().unwrap();
+    states[encoder] = !states[encoder];
+    let encoder_states = states.to_vec();
+    drop(states);
+    
+    log::debug!("Encoder states: {:#?}", encoder_states);
     Ok(DeviceInput::EncoderStateChange(encoder_states))
 }
