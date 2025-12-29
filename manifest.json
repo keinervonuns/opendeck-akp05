@@ -1,9 +1,9 @@
 {
-  "Name": "Ajazz AKP05 / Mirabox N4",
+  "Name": "Ajazz AKP05 / Mirabox N4 / VSDInside N4 Pro / Soomfon CN003",
   "Description": "Device support plugin for Ajazz AKP05 (+variants)",
-  "Author": "ambiso",
-  "Version": "0.8.5",
-  "PluginUUID": "com.github.ambiso.opendeck-akp05",
+  "Author": "keinervonuns",
+  "Version": "0.9.0",
+  "PluginUUID": "com.github.keinervonuns.opendeck-akp05",
   "CodePathLin": "opendeck-akp05-linux",
   "CodePathMac": "opendeck-akp05-mac",
   "CodePathWin": "opendeck-akp05-win.exe",

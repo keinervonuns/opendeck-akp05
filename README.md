@@ -1,6 +1,6 @@
 ![Plugin Icon](assets/icon.png)
 
-# OpenDeck Ajazz AKP05 / Mirabox N4 Plugin
+# OpenDeck Ajazz AKP05 / Mirabox N4 / VSDInside N4 Pro / Soomfon CN003 Plugin
 
 An unofficial plugin for Mirabox N4-family devices
 
@@ -13,12 +13,7 @@ Requires OpenDeck 2.5.0 or newer
 - Mirabox N4 (6603:1007)
 - Ajazz AKP05E (0300:3004)
 - VSDInside N4 Pro (5548:1023)
-
-## Platform support
-
-- Linux: Guaranteed, if stuff breaks - I'll probably catch it before public release
-- Mac: Zero effort, no tests before release, if stuff breaks - too bad, it's up to you to contribute fixes
-- Windows: Zero effort, no tests before release, if stuff breaks - too bad, it's up to you to contribute fixes
+- Soomfon CN003 (1500:3002)
 
 ## Installation
 
@@ -26,10 +21,6 @@ Requires OpenDeck 2.5.0 or newer
 2. In OpenDeck: Plugins -> Install from file
 3. Download [udev rules](./40-opendeck-akp03.rules) and install them by copying into `/etc/udev/rules.d/` and running `sudo udevadm control --reload-rules`
 4. Unplug and plug again the device, restart OpenDeck
-
-## Adding new devices
-
-Read [this wiki page](https://github.com/4ndv/opendeck-akp03/wiki/Adding-support-for-new-devices) for more information.
 
 ## Building
 
@@ -72,11 +63,6 @@ $ just package
 
 ## Acknowledgments
 
-This plugin is heavily based on work by contributors of [elgato-streamdeck](https://github.com/streamduck-org/elgato-streamdeck) crate
-
-Further inspiration was taken from these sister repos:
-- https://github.com/naerschhersch/opendeck-akp05
-- https://github.com/GrauBlitz/opendeck-akp05
-- https://github.com/maillota/opendeck-akp05
+This plugin is a fork of [ambiso's opendeck-akp05](https://github.com/ambiso/opendeck-akp05) plugin, modified to support Soomfon CN003 and changed dial/touch behaviour.
 
 The icon was yoinked from https://github.com/naerschhersch/opendeck-akp05/
